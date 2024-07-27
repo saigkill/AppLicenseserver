@@ -1,0 +1,72 @@
+[
+    {
+        "Created": "4/5/2022",
+        "Modified": "4/5/2022",
+        "FirstName": "Sascha",
+        "LastName": "Manns",
+        "UserName": "saigkill",
+        "Email": "s.manns@marcossoftware.com",
+        "Description": "Dev-User",
+        "IsAdminRole": true,
+        "Roles": "Administrator",
+        "IsActive": true,
+        "Password": "wZSkQyFVu27i0K+vFmZ0KXM/MzyYjIfg5pPGB5mHB5E=",
+        "AccountId": 1
+    },
+    {
+        "Created": "4/5/2022",
+        "Modified": "4/5/2022",
+        "FirstName": "Support",
+        "LastName": "Support",
+        "UserName": "support",
+        "Email": "support@marcossoftware.com",
+        "Description": "Support-User",
+        "IsAdminRole": true,
+        "Roles": "Administrator",
+        "IsActive": true,
+        "Password": "wZSkQyFVu27i0K+vFmZ0KXM/MzyYjIfg5pPGB5mHB5E=",
+        "AccountId": 1
+    },
+    {
+        "Created": "4/19/2022",
+        "Modified": "4/19/2022",
+        "FirstName": "Marco",
+        "LastName": "Schoch",
+        "UserName": "mschoch",
+        "Email": "mschoch@alcube.de",
+        "Description": "Kaufland-Shipping-App Pilotkunde",
+        "IsAdminRole": false,
+        "Roles": "",
+        "IsActive": true,
+        "Password": "qMYLbZOCBSOCP58woyqBmmzVxmAF5NxRjyQaVadaIS0=",
+        "AccountId": 2
+    },
+    {
+        "Created": "4/22/2022",
+        "Modified": "4/22/2022",
+        "FirstName": "Deniz",
+        "LastName": "Cicek",
+        "UserName": "dcicek",
+        "Email": "d.cicek@bluespoon.de",
+        "Description": "Wayfair-Shipping-App Pilotkunde",
+        "IsAdminRole": false,
+        "Roles": "",
+        "IsActive": true,
+        "Password": "G47B58guAVyTunCPpg9tWA==",
+        "AccountId": 3
+    },
+    {
+        "Created": "5/18/2022",
+        "Modified": "5/18/2022",
+        "FirstName": "Antonio",
+        "LastName": "Ligato",
+        "UserName": "aligato",
+        "Email": "ceo@gl-gmbh.com",
+        "Description": "Wayfair-Label-App Kunde",
+        "IsAdminRole": false,
+        "Roles": "",
+        "IsActive": true,
+        "Password": "ksKeRUsq7zFqVrPD3PcC5rYZcuP0WivGgtbpRIulIK8=",
+        "AccountId": 4
+    }
+]

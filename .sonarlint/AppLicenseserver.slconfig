@@ -1,0 +1,15 @@
+{
+  "ServerUri": "https://sonarcloud.io/",
+  "Organization": {
+    "Key": "saigkill-1",
+    "Name": "saigkill-1"
+  },
+  "ProjectKey": "saigkill_AppLicenseserver",
+  "ProjectName": "AppLicenseserver",
+  "Profiles": {
+    "CSharp": {
+      "ProfileKey": "AXsV6dl7wyiKcZhbtd85",
+      "ProfileTimestamp": "2022-03-31T10:15:41Z"
+    }
+  }
+}

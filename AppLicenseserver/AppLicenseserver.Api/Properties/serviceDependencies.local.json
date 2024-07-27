@@ -1,0 +1,20 @@
+{
+  "dependencies": {
+    "appInsights1": {
+      "secretStore": "LocalSecretsFile",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/microsoft.insights/components/AppLicenseserverApi",
+      "type": "appInsights.azure",
+      "connectionId": "APPLICATIONINSIGHTS_CONNECTION_STRING"
+    },
+    "secrets1": {
+      "type": "secrets.user"
+    },
+    "mssql1": {
+      "secretStore": "LocalSecretsFile",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/marcossoftware/databases/licenseserver",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:AppLicenseserverDB",
+      "dynamicId": null
+    }
+  }
+}

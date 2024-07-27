@@ -1,0 +1,42 @@
+[
+    {
+        "Created": "4/5/2022",
+        "Modified": "4/5/2022",
+        "Name": "Marcos Software",
+        "Email": "support@marcossoftware.com",
+        "Description": "Dev/Support",
+        "IsTrial": false,
+        "IsActive": true,
+        "SetActive": "4/5/2022"
+    },
+    {
+        "Created": "4/19/2022",
+        "Modified": "4/19/2022",
+        "Name": "Alcube GmbH",
+        "Email": "mschoch@alcube.de",
+        "Description": "Kaufland-Shipping-App Pilotkunde",
+        "IsTrial": false,
+        "IsActive": true,
+        "SetActive": "4/19/2022"
+    },
+    {
+        "Created": "4/22/2022",
+        "Modified": "4/22/2022",
+        "Name": "Bluespoon GmbH",
+        "Email": "d.cicek@bluespoon.de",
+        "Description": "Wayfair-Shipping-App Pilotkunde",
+        "IsTrial": false,
+        "IsActive": true,
+        "SetActive": "4/22/2022"
+    },
+    {
+        "Created": "5/18/2022",
+        "Modified": "5/18/2022",
+        "Name": "G+L GmbH",
+        "Email": "ceo@gl-gmbh.com",
+        "Description": "Wayfair-Label-App Kunde",
+        "IsTrial": false,
+        "IsActive": true,
+        "SetActive": "5/18/2022"
+    }
+]

@@ -1,0 +1,22 @@
+﻿{
+    // ACTION REQUIRED: This file was automatically added to your project, but it
+    // will not take effect until additional steps are taken to enable it. See the
+    // following page for additional information:
+    //
+    // https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/EnableConfiguration.md
+
+    "$schema": "https://raw.githubusercontent.com/DotNetAnalyzers/StyleCopAnalyzers/master/StyleCop.Analyzers/StyleCop.Analyzers/Settings/stylecop.schema.json",
+    "settings": {
+        "documentationRules": {
+            "companyName": "marcos software",
+            "copyrightText": "this file may not be redistributed in whole or significant part\n and is subject to the marcos software license.\n\n @author: {author}, {authorEmail}\n @copyright: {year}, marcos-software, http://www.marcos-software.de",
+            "headerDecoration": "--------------------------------------------------------------------------------------------------------------------",
+            "variables": {
+                "licenseFile": "LizenzenUndAgb-WayfairLabelApp.md",
+                "author": "Sascha Manns",
+                "authorEmail": "s.manns@marcossoftware.com",
+                "year": "2022"
+            }
+        }
+    }
+}

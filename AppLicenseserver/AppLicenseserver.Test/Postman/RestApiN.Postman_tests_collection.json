@@ -1,0 +1,7160 @@
+
+{
+	"info": {
+		"_postman_id": "ea4f41d1-2295-4bbb-be96-503f605acf47",
+		"name": "AppLicenseserver",
+		"description": "This is selection of basic REST API tests for AppLicenseserver created by RestApiNEx",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "JWT",
+			"item": [
+				{
+					"name": "Account",
+					"item": [
+						{
+							"name": "1.GetToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "41c03b18-dcc3-4f79-a242-d6e33d86375e",
+										"exec": [
+											"",
+											"var data = JSON.parse(responseBody);",
+											"//jwt_token defined in Edit collection - Variable",
+											"//in this test populated",
+											"postman.clearGlobalVariable(\"jwt_token\");  ",
+											"//populate token variable",
+											"postman.setGlobalVariable(\"jwt_token\", data.token); ",
+											"pm.globals.set(\"jwt_token\", data.token);",
+											"",
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"//var data = JSON.parse(responseBody);",
+											"//postman.setEnvironmentVariable(\"token\", data.token);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "e493431d-3367-488f-aea5-7ff6c99f4f35",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\"UserName\": \"my@email.com\",\n\"Password\": \"mysecretpassword123\"\n}"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/token",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"token"
+									]
+								},
+								"description": "This test must be executed the first to get token value for other tests"
+							},
+							"response": []
+						},
+						{
+							"name": "Add",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "221df8e7-4e36-464d-8715-c5e6c1384910",
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "66536b85-5e2c-4a66-a903-5ec026dd13c8",
+										"type": "text/javascript",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"",
+											"//",
+											"postman.clearGlobalVariable(\"account_addedid\");  ",
+											"postman.setGlobalVariable(\"account_addedid\", responseBody); ",
+											"pm.globals.set(\"account_addedid\", responseBody);",
+											"//",
+											"setTimeout(function(){}, 500);  //must have this to have time for global addedid to propagate",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "",
+										"value": "",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Brad Pitt\",\n    \"email\": \"bradpitt@anasoft.net\",\n    \"description\":\"description\",\n    \"isTrial\": true,\n    \"IsActive\": true,\n    \"SetActive\": \"2018-12-01\"\n}"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/account",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"account"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add async",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "221df8e7-4e36-464d-8715-c5e6c1384910",
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "4e3c62f6-618e-46a1-9838-c0bb521fcc5f",
+										"type": "text/javascript",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"//",
+											"postman.clearGlobalVariable(\"accountasync_addedid\");  ",
+											"postman.setGlobalVariable(\"accountasync_addedid\", responseBody); ",
+											"pm.globals.set(\"accountasync_addedid\", responseBody);",
+											"//",
+											"setTimeout(function(){}, 500);",
+											"",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "",
+										"value": "",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Brad Pitt\",\n    \"email\": \"bradpitt@anasoft.net\",\n    \"description\":\"description\",\n    \"isTrial\": true,\n    \"IsActive\": true,\n    \"SetActive\": \"2018-12-01\"\n}"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/accountasync",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"accountasync"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAll",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "47ed0a0a-5d36-4aef-abae-9e3e236c2a03",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"verify account counts\",  () => {",
+											"    pm.expect(pm.response.json().length).to.be.above(0);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "84ceac94-4490-4684-bef1-5eeca0e69f81",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/account",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"account"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAll async",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "67dac4cb-99e7-4cae-851a-035b07a0b902",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"verify account counts\",  () => {",
+											"    pm.expect(pm.response.json().length).to.be.above(0);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/accountasync",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"accountasync"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetById",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "092dfded-6b8e-4518-950c-faaed23dd10b",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"//",
+											"postman.clearGlobalVariable(\"account_addedrowversion\");  ",
+											"postman.setGlobalVariable(\"account_addedrowversion\", pm.response.json().rowVersion); ",
+											"pm.globals.set(\"account_addedrowversion\", pm.response.json().rowVersion);",
+											"//",
+											"pm.test(\"verify account returned\",  () => {",
+											"   pm.expect(pm.response.json().id).to.be.above(0);",
+											"});",
+											"",
+											"",
+											"",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/account/{{account_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"account",
+										"{{account_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetById async",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "69acd59c-affe-41e5-966f-f5b57c784b0d",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"//",
+											"postman.clearGlobalVariable(\"accountasync_addedrowversion\");  ",
+											"postman.setGlobalVariable(\"accountasync_addedrowversion\", pm.response.json().rowVersion); ",
+											"pm.globals.set(\"accountasync_addedrowversion\", pm.response.json().rowVersion);",
+											"//",
+											"pm.test(\"verify account returned\",  () => {",
+											"  pm.expect(pm.response.json().id).to.be.above(0);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/accountasync/{{accountasync_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"accountasync",
+										"{{accountasync_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateById",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d2ca76fc-10df-4ec3-82b9-a58e0454b8de",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(202);",
+											"});",
+											"",
+											"//updated",
+											"pm.test(\"verify account updated\",  () => {",
+											"   pm.expect(pm.response.json().description).to.be.equal(\"updated\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {\n        \"id\": {{account_addedid}},\n        \"name\": \"Brad Pitt - update3\",\n        \"email\": \"email3@anasoft.net\",\n        \"description\": \"updated\",\n        \"isTrial\": true,\n        \"isActive\": true,\n        \"setActive\": \"2018-12-01T00:00:00\",\n        \"rowVersion\":\"{{account_addedrowversion}}\",\n        \"testText\": null\n    }"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/account/{{account_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"account",
+										"{{account_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateById async",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d0afe353-c00b-4f0e-830c-9d068f19fe02",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(202);",
+											"});",
+											"",
+											"//updated",
+											"pm.test(\"verify account updated\",  () => {",
+											"   pm.expect(pm.response.json().description).to.be.equal(\"updated\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {\n        \"id\": {{accountasync_addedid}},\n        \"name\": \"Brad Pitt - update3\",\n        \"email\": \"email3@anasoft.net\",\n        \"description\": \"updated\",\n        \"isTrial\": true,\n        \"isActive\": true,\n        \"setActive\": \"2018-12-01T00:00:00\",\n        \"rowVersion\":\"{{accountasync_addedrowversion}}\",\n        \"testText\": null\n    }"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/accountasync/{{accountasync_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"accountasync",
+										"{{accountasync_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteById",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "31384209-6078-4f65-90b1-f01a36ed0655",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/account/{{account_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"account",
+										"{{account_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteById async",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e7d0eca3-b385-40c8-9dec-6d3eb17bd220",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/accountasync/{{accountasync_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"accountasync",
+										"{{accountasync_addedid}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "1.GetToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "41c03b18-dcc3-4f79-a242-d6e33d86375e",
+										"exec": [
+											"",
+											"var data = JSON.parse(responseBody);",
+											"//jwt_token defined in Edit collection - Variable",
+											"//in this test populated",
+											"postman.clearGlobalVariable(\"jwt_token\");  ",
+											"//populate token variable",
+											"postman.setGlobalVariable(\"jwt_token\", data.token); ",
+											"pm.globals.set(\"jwt_token\", data.token);",
+											"",
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"//var data = JSON.parse(responseBody);",
+											"//postman.setEnvironmentVariable(\"token\", data.token);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "e493431d-3367-488f-aea5-7ff6c99f4f35",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\"UserName\": \"my@email.com\",\n\"Password\": \"mysecretpassword123\"\n}"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/token",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"token"
+									]
+								},
+								"description": "This test must be executed the first to get token value for other tests"
+							},
+							"response": []
+						},
+						{
+							"name": "Add",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "221df8e7-4e36-464d-8715-c5e6c1384910",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "2c044953-195e-4f0c-b04b-98ae140f7d1f",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"",
+											"postman.clearGlobalVariable(\"user_addedid\");  ",
+											"//populate token variable",
+											"postman.setGlobalVariable(\"user_addedid\", responseBody); ",
+											"pm.globals.set(\"user_addedid\", responseBody);",
+											"setTimeout(function(){}, 500);  //must have this to have time for global addedid to propagate",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "",
+										"value": "",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"FirstName\": \"Brad\",\n    \"LastName\": \"Pitt\",\n    \"UserName\": \"my1@email.com\",\n    \"Email\":\"bradpitt@anasoft.net\",\n    \"Description\": \"description\",\n    \"IsAdminRole\": true,\n    \"IsActive\": true,\n    \"Password\": \"mysecretpassword123\",\n    \"AccountId\": 1\n}"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/user",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add async",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "221df8e7-4e36-464d-8715-c5e6c1384910",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "f97e586d-69cb-49ce-9c57-bfcedc1ee0ca",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"",
+											"postman.clearGlobalVariable(\"userasync_addedid\");  ",
+											"//populate token variable",
+											"postman.setGlobalVariable(\"userasync_addedid\", responseBody); ",
+											"pm.globals.set(\"userasync_addedid\", responseBody);",
+											"setTimeout(function(){}, 500);  //must have this to have time for global addedid to propagate",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "",
+										"value": "",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"FirstName\": \"Brad\",\n    \"LastName\": \"Pitt\",\n    \"UserName\": \"my1@email.com\",\n    \"Email\":\"bradpitt@anasoft.net\",\n    \"Description\": \"description\",\n    \"IsAdminRole\": true,\n    \"IsActive\": true,\n    \"Password\": \"mysecretpassword123\",\n    \"AccountId\": 1\n}"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/userasync",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"userasync"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAll",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "47ed0a0a-5d36-4aef-abae-9e3e236c2a03",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"verify account counts\",  () => {",
+											"    pm.expect(pm.response.json().length).to.be.above(0);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "84ceac94-4490-4684-bef1-5eeca0e69f81",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/user",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAll async",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "67dac4cb-99e7-4cae-851a-035b07a0b902",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"verify account counts\",  () => {",
+											"    pm.expect(pm.response.json().length).to.be.above(0);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/userasync",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"userasync"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetById",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "09754b14-90e7-4176-8d65-b589abd85002",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"//",
+											"postman.clearGlobalVariable(\"user_addedrowversion\");  ",
+											"postman.setGlobalVariable(\"user_addedrowversion\", pm.response.json().rowVersion); ",
+											"pm.globals.set(\"user_addedrowversion\", pm.response.json().rowVersion);",
+											"//",
+											"pm.test(\"verify user returned\",  () => {",
+											"   pm.expect(pm.response.json().id).to.be.above(0);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/user/{{user_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"user",
+										"{{user_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetById async",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "3d8f9109-23ec-497e-a0bd-9fa397bc3240",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"//",
+											"postman.clearGlobalVariable(\"userasync_addedrowversion\");  ",
+											"postman.setGlobalVariable(\"userasync_addedrowversion\", pm.response.json().rowVersion); ",
+											"pm.globals.set(\"userasync_addedrowversion\", pm.response.json().rowVersion);",
+											"//",
+											"pm.test(\"verify user returned\",  () => {",
+											"   pm.expect(pm.response.json().id).to.be.above(0);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/userasync/{{userasync_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"userasync",
+										"{{userasync_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateById",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d8f43312-caa9-412e-b3d5-cc0b5e46c476",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(202);",
+											"});",
+											"",
+											"//updated",
+											"pm.test(\"verify user updated\",  () => {",
+											"   pm.expect(pm.response.json().description).to.be.equal(\"updated\");",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"id\":{{user_addedid}},\n    \"FirstName\": \"Brad\",\n    \"LastName\": \"Pitt\",\n    \"UserName\": \"my1@email.com\",\n    \"Email\":\"bradpitt@anasoft.net\",\n    \"Description\": \"updated\",\n    \"IsAdminRole\": true,\n    \"IsActive\": true,\n    \"Password\": \"mysecretpassword123\",\n    \"AccountId\": 1,\n    \"rowVersion\": \"{{user_addedrowversion}}\",\n    \"testText\": null\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/user/{{user_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"user",
+										"{{user_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateById async",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "44d857ee-f00d-4441-8947-59d8bd4d6db7",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(202);",
+											"});",
+											"",
+											"//updated",
+											"pm.test(\"verify user updated\",  () => {",
+											"   pm.expect(pm.response.json().description).to.be.equal(\"updated\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"id\":{{userasync_addedid}},\n    \"FirstName\": \"Brad\",\n    \"LastName\": \"Pitt\",\n    \"UserName\": \"my1@email.com\",\n    \"Email\":\"bradpitt@anasoft.net\",\n    \"Description\": \"updated\",\n    \"IsAdminRole\": true,\n    \"IsActive\": true,\n    \"Password\": \"mysecretpassword123\",\n    \"AccountId\": 1,\n    \"rowVersion\": \"{{userasync_addedrowversion}}\",\n    \"testText\": null\n}"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/userasync/{{userasync_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"userasync",
+										"{{userasync_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteById",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e7d0eca3-b385-40c8-9dec-6d3eb17bd220",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/user/{{user_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"user",
+										"{{user_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteById async",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e7d0eca3-b385-40c8-9dec-6d3eb17bd220",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/userasync/{{userasync_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"userasync",
+										"{{userasync_addedid}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "017c1497-4de2-483d-b034-6069b8565a9f",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "1e8fe73d-d426-4232-968e-90ecf44a71ca",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+				,{
+					"name": "License",
+					"item": [
+						{
+							"name": "1.GetToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "2eb5bad3-7025-4d18-8d61-1f4721f518cf",
+										"exec": [
+											"",
+											"var data = JSON.parse(responseBody);",
+											"//jwt_token defined in Edit collection - Variable",
+											"//in this test populated",
+											"postman.clearGlobalVariable(\"jwt_token\");  ",
+											"//populate token variable",
+											"postman.setGlobalVariable(\"jwt_token\", data.token); ",
+											"pm.globals.set(\"jwt_token\", data.token);",
+											"",
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"//var data = JSON.parse(responseBody);",
+											"//postman.setEnvironmentVariable(\"token\", data.token);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "373e54dd-c04c-4e92-9e4c-f94ac0fc5cae",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\"UserName\": \"my@email.com\",\n\"Password\": \"mysecretpassword123\"\n}"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/token",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"token"
+									]
+								},
+								"description": "This test must be executed the first to get token value for other tests"
+							},
+							"response": []
+						},
+						{
+							"name": "Add",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "6273aa80-a763-4ad3-b4ad-f84383767686",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "c46f0ef7-cfd1-4e69-aaa5-eb0d1375de9b",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"",
+											"//",
+											"postman.clearGlobalVariable(\"license_addedid\");  ",
+											"postman.setGlobalVariable(\"license_addedid\", responseBody); ",
+											"pm.globals.set(\"license_addedid\", responseBody);",
+											"//",
+											"setTimeout(function(){}, 500);  //must have this to have time for global addedid to propagate",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "",
+										"value": "",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"TestText\": \"tt\"\n}"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/license",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"license"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add async",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "32b56256-4c6a-468a-8585-6c3558b015ce",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "ea80399c-a3a0-459b-a17c-5111f10769c6",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"//",
+											"postman.clearGlobalVariable(\"licenseasync_addedid\");  ",
+											"postman.setGlobalVariable(\"licenseasync_addedid\", responseBody); ",
+											"pm.globals.set(\"licenseasync_addedid\", responseBody);",
+											"//",
+											"setTimeout(function(){}, 500);",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "",
+										"value": "",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"TestText\": \"tt\"\n}"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/licenseasync",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"licenseasync"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAll",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "5ce7c931-ce5e-4686-b7e7-42b4e1ee4acf",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"verify account counts\",  () => {",
+											"    pm.expect(pm.response.json().length).to.be.above(0);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "9e9a0f89-e9b0-49c8-92f8-a3e241a6e727",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/license",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"license"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAll async",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d37cff11-11a2-492e-93ac-b22be8fcb3e4",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"verify license counts\",  () => {",
+											"    pm.expect(pm.response.json().length).to.be.above(0);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/licenseasync",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"licenseasync"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetById",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8f95a22c-0520-4a90-b1b4-1c1ca3467911",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"//",
+											"postman.clearGlobalVariable(\"license_addedrowversion\");  ",
+											"postman.setGlobalVariable(\"license_addedrowversion\", pm.response.json().rowVersion); ",
+											"pm.globals.set(\"license_addedrowversion\", pm.response.json().rowVersion);",
+											"//",
+											"pm.test(\"verify license returned\",  () => {",
+											"   pm.expect(pm.response.json().id).to.be.above(0);",
+											"});",
+											"",
+											"",
+											"",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/license/{{license_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"license",
+										"{{license_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetById async",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8b6bdbf2-fdb7-4416-8619-90748bfb9938",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"//",
+											"postman.clearGlobalVariable(\"licenseasync_addedrowversion\");  ",
+											"postman.setGlobalVariable(\"licenseasync_addedrowversion\", pm.response.json().rowVersion); ",
+											"pm.globals.set(\"licenseasync_addedrowversion\", pm.response.json().rowVersion);",
+											"//",
+											"pm.test(\"verify license returned\",  () => {",
+											"  pm.expect(pm.response.json().id).to.be.above(0);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/licenseasync/{{licenseasync_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"licenseasync",
+										"{{licenseasync_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateById",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "61d55e36-04ce-4ce7-b87a-38a6c637c870",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(202);",
+											"});",
+											"",
+											"//updated",
+											"pm.test(\"verify license updated\",  () => {",
+											"   pm.expect(pm.response.json().testText).to.be.equal(\"tt updated\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {\n        \"id\": {{license_addedid}},\n        \"testText\": \"tt updated\",\n        \"rowVersion\":\"{{license_addedrowversion}}\"\n    }"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/license/{{license_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"license",
+										"{{license_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateById async",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "452843fc-f15d-404c-8637-86b8afef1308",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(202);",
+											"});",
+											"",
+											"//updated",
+											"pm.test(\"verify license updated\",  () => {",
+											"   pm.expect(pm.response.json().testText).to.be.equal(\"tt updated\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {\n        \"id\": {{licenseasync_addedid}},\n        \"testText\": \"tt updated\",\n        \"rowVersion\":\"{{licenseasync_addedrowversion}}\"\n    }"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/licenseasync/{{licenseasync_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"licenseasync",
+										"{{licenseasync_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteById",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "390c8cd9-3d97-4c21-b7a4-92f2133a16e2",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/license/{{license_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"license",
+										"{{license_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteById async",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c3617d6b-573a-4809-b2a4-10e55d3aff28",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/licenseasync/{{licenseasync_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"licenseasync",
+										"{{licenseasync_addedid}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "Default JWT License tests",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "dd188efa-2bf0-4fca-97a9-5e192e7cd2a1",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "92ed489e-e65d-44a5-9447-8b1d4632c472",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}				
+				,{
+					"name": "Product",
+					"item": [
+						{
+							"name": "1.GetToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "0e89c44a-614d-4bd0-a63f-cba3101ed67a",
+										"exec": [
+											"",
+											"var data = JSON.parse(responseBody);",
+											"//jwt_token defined in Edit collection - Variable",
+											"//in this test populated",
+											"postman.clearGlobalVariable(\"jwt_token\");  ",
+											"//populate token variable",
+											"postman.setGlobalVariable(\"jwt_token\", data.token); ",
+											"pm.globals.set(\"jwt_token\", data.token);",
+											"",
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"//var data = JSON.parse(responseBody);",
+											"//postman.setEnvironmentVariable(\"token\", data.token);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "7762a402-de8a-47c8-a2a0-2266d5beef50",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\"UserName\": \"my@email.com\",\n\"Password\": \"mysecretpassword123\"\n}"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/token",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"token"
+									]
+								},
+								"description": "This test must be executed the first to get token value for other tests"
+							},
+							"response": []
+						},
+						{
+							"name": "Add",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "b25af23b-dafb-4c6e-919d-7b33cb50f908",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "c5730b7b-595a-4a34-bcea-ebe1ba078f68",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"",
+											"//",
+											"postman.clearGlobalVariable(\"product_addedid\");  ",
+											"postman.setGlobalVariable(\"product_addedid\", responseBody); ",
+											"pm.globals.set(\"product_addedid\", responseBody);",
+											"//",
+											"setTimeout(function(){}, 500);  //must have this to have time for global addedid to propagate",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "",
+										"value": "",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"TestText\": \"tt\"\n}"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/product",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"product"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add async",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "f79180d2-4365-4230-92f6-d7eb238ff24e",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "b61c23e9-6fc3-418c-bd38-d1eca6119188",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"//",
+											"postman.clearGlobalVariable(\"productasync_addedid\");  ",
+											"postman.setGlobalVariable(\"productasync_addedid\", responseBody); ",
+											"pm.globals.set(\"productasync_addedid\", responseBody);",
+											"//",
+											"setTimeout(function(){}, 500);",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "",
+										"value": "",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"TestText\": \"tt\"\n}"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/productasync",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"productasync"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAll",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "06fbf5ce-2160-4c3a-bd9b-b74c06a40213",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"verify account counts\",  () => {",
+											"    pm.expect(pm.response.json().length).to.be.above(0);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "e9328325-ab60-4a84-af59-089b8cc54a0d",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/product",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"product"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAll async",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "45e7bef5-7a27-45fa-80f6-1d8df6e263dc",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"verify product counts\",  () => {",
+											"    pm.expect(pm.response.json().length).to.be.above(0);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/productasync",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"productasync"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetById",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c4620b3c-e931-4522-9358-b6bb33d54b0f",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"//",
+											"postman.clearGlobalVariable(\"product_addedrowversion\");  ",
+											"postman.setGlobalVariable(\"product_addedrowversion\", pm.response.json().rowVersion); ",
+											"pm.globals.set(\"product_addedrowversion\", pm.response.json().rowVersion);",
+											"//",
+											"pm.test(\"verify product returned\",  () => {",
+											"   pm.expect(pm.response.json().id).to.be.above(0);",
+											"});",
+											"",
+											"",
+											"",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/product/{{product_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"product",
+										"{{product_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetById async",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "3a9d1e98-4271-4faa-b61d-bab9f528760c",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"//",
+											"postman.clearGlobalVariable(\"productasync_addedrowversion\");  ",
+											"postman.setGlobalVariable(\"productasync_addedrowversion\", pm.response.json().rowVersion); ",
+											"pm.globals.set(\"productasync_addedrowversion\", pm.response.json().rowVersion);",
+											"//",
+											"pm.test(\"verify product returned\",  () => {",
+											"  pm.expect(pm.response.json().id).to.be.above(0);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/productasync/{{productasync_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"productasync",
+										"{{productasync_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateById",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b7ab3503-2f17-415c-a777-b912c54a5e82",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(202);",
+											"});",
+											"",
+											"//updated",
+											"pm.test(\"verify product updated\",  () => {",
+											"   pm.expect(pm.response.json().testText).to.be.equal(\"tt updated\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {\n        \"id\": {{product_addedid}},\n        \"testText\": \"tt updated\",\n        \"rowVersion\":\"{{product_addedrowversion}}\"\n    }"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/product/{{product_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"product",
+										"{{product_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateById async",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "55cb50c9-a9b8-427c-823f-a057176a29f3",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(202);",
+											"});",
+											"",
+											"//updated",
+											"pm.test(\"verify product updated\",  () => {",
+											"   pm.expect(pm.response.json().testText).to.be.equal(\"tt updated\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {\n        \"id\": {{productasync_addedid}},\n        \"testText\": \"tt updated\",\n        \"rowVersion\":\"{{productasync_addedrowversion}}\"\n    }"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/productasync/{{productasync_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"productasync",
+										"{{productasync_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteById",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "522b6672-5d16-4bb6-96ea-748fa13aa4a4",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/product/{{product_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"product",
+										"{{product_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteById async",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "0938b3d7-712c-4d72-b7b0-d47ec70316f1",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/productasync/{{productasync_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"productasync",
+										"{{productasync_addedid}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "Default JWT Product tests",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f58a8140-10c3-401b-8b36-6a04224bf626",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "0c5074eb-3c9a-45f6-8329-8c3107400f55",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}				
+				,{
+					"name": "Telemetry",
+					"item": [
+						{
+							"name": "1.GetToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "80a7ff14-c884-4794-95e5-3839638afed0",
+										"exec": [
+											"",
+											"var data = JSON.parse(responseBody);",
+											"//jwt_token defined in Edit collection - Variable",
+											"//in this test populated",
+											"postman.clearGlobalVariable(\"jwt_token\");  ",
+											"//populate token variable",
+											"postman.setGlobalVariable(\"jwt_token\", data.token); ",
+											"pm.globals.set(\"jwt_token\", data.token);",
+											"",
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"//var data = JSON.parse(responseBody);",
+											"//postman.setEnvironmentVariable(\"token\", data.token);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "519c043c-6877-4225-a807-1632827f9e63",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\"UserName\": \"my@email.com\",\n\"Password\": \"mysecretpassword123\"\n}"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/token",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"token"
+									]
+								},
+								"description": "This test must be executed the first to get token value for other tests"
+							},
+							"response": []
+						},
+						{
+							"name": "Add",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "cf1ecbe9-0c85-4b2b-81e7-5f7bdec569c5",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "883db921-ec4f-4571-8c16-b6a3ef38b38d",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"",
+											"//",
+											"postman.clearGlobalVariable(\"telemetry_addedid\");  ",
+											"postman.setGlobalVariable(\"telemetry_addedid\", responseBody); ",
+											"pm.globals.set(\"telemetry_addedid\", responseBody);",
+											"//",
+											"setTimeout(function(){}, 500);  //must have this to have time for global addedid to propagate",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "",
+										"value": "",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"TestText\": \"tt\"\n}"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/telemetry",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"telemetry"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add async",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "d09f6edb-02d1-4975-a529-a1846bb27a9d",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "76e9ccc0-a3af-4a72-9053-0965c31fd6a0",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"//",
+											"postman.clearGlobalVariable(\"telemetryasync_addedid\");  ",
+											"postman.setGlobalVariable(\"telemetryasync_addedid\", responseBody); ",
+											"pm.globals.set(\"telemetryasync_addedid\", responseBody);",
+											"//",
+											"setTimeout(function(){}, 500);",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "",
+										"value": "",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"TestText\": \"tt\"\n}"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/telemetryasync",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"telemetryasync"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAll",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "954915ac-6860-4e71-9a82-ab5d43e2af7b",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"verify account counts\",  () => {",
+											"    pm.expect(pm.response.json().length).to.be.above(0);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "58929318-7095-4edb-b404-d4b227c0e49a",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/telemetry",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"telemetry"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAll async",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "5921a876-4b81-47ae-ba45-a0fbc66746e2",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"verify telemetry counts\",  () => {",
+											"    pm.expect(pm.response.json().length).to.be.above(0);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/telemetryasync",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"telemetryasync"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetById",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e34dd4a5-0384-45a0-b128-d507aaf4bc20",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"//",
+											"postman.clearGlobalVariable(\"telemetry_addedrowversion\");  ",
+											"postman.setGlobalVariable(\"telemetry_addedrowversion\", pm.response.json().rowVersion); ",
+											"pm.globals.set(\"telemetry_addedrowversion\", pm.response.json().rowVersion);",
+											"//",
+											"pm.test(\"verify telemetry returned\",  () => {",
+											"   pm.expect(pm.response.json().id).to.be.above(0);",
+											"});",
+											"",
+											"",
+											"",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/telemetry/{{telemetry_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"telemetry",
+										"{{telemetry_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetById async",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "545d0638-9b33-4503-9c9f-7995839edae0",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"//",
+											"postman.clearGlobalVariable(\"telemetryasync_addedrowversion\");  ",
+											"postman.setGlobalVariable(\"telemetryasync_addedrowversion\", pm.response.json().rowVersion); ",
+											"pm.globals.set(\"telemetryasync_addedrowversion\", pm.response.json().rowVersion);",
+											"//",
+											"pm.test(\"verify telemetry returned\",  () => {",
+											"  pm.expect(pm.response.json().id).to.be.above(0);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/telemetryasync/{{telemetryasync_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"telemetryasync",
+										"{{telemetryasync_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateById",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "56b90209-b87a-4f7f-bf42-11d4fb8905a5",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(202);",
+											"});",
+											"",
+											"//updated",
+											"pm.test(\"verify telemetry updated\",  () => {",
+											"   pm.expect(pm.response.json().testText).to.be.equal(\"tt updated\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {\n        \"id\": {{telemetry_addedid}},\n        \"testText\": \"tt updated\",\n        \"rowVersion\":\"{{telemetry_addedrowversion}}\"\n    }"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/telemetry/{{telemetry_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"telemetry",
+										"{{telemetry_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateById async",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b6d1b7e9-df9a-4114-841d-64403ed7c8fc",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(202);",
+											"});",
+											"",
+											"//updated",
+											"pm.test(\"verify telemetry updated\",  () => {",
+											"   pm.expect(pm.response.json().testText).to.be.equal(\"tt updated\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {\n        \"id\": {{telemetryasync_addedid}},\n        \"testText\": \"tt updated\",\n        \"rowVersion\":\"{{telemetryasync_addedrowversion}}\"\n    }"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/telemetryasync/{{telemetryasync_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"telemetryasync",
+										"{{telemetryasync_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteById",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b5e764ab-16b6-475d-8d22-b823241cb24c",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/telemetry/{{telemetry_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"telemetry",
+										"{{telemetry_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteById async",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "6a1baf33-67dc-4cbb-95d3-dff9773ecae3",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/telemetryasync/{{telemetryasync_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"telemetryasync",
+										"{{telemetryasync_addedid}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "Default JWT Telemetry tests",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "0020ad31-27e1-412f-8036-14c0522cc7e1",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "ab229aed-f4b5-4592-a54b-a39f454891d2",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}				
+			],
+			"description": "JWT Authentication\n\nNOTE: Set \"UseIndentityServer4\": false in Api's appsettings.json and run API server\n",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4094f08b-55fb-42e2-9c48-9573966b4aaf",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "8466e275-6b36-4d67-b21a-081033a4914a",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "IS4",
+			"item": [
+				{
+					"name": "Account",
+					"item": [
+						{
+							"name": "1.GetToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "79528e6b-9c51-47eb-a407-db8861076675",
+										"exec": [
+											"var data = JSON.parse(responseBody);",
+											"//is4_token defined in Edit collection - Variable",
+											"//in this test populated",
+											"postman.clearGlobalVariable(\"is4_token\");  ",
+											"//populate token variable",
+											"postman.setGlobalVariable(\"is4_token\", data.access_token); ",
+											"pm.globals.set(\"is4_token\", data.access_token);",
+											"",
+											"console.log(\"is4_token\", data.access_token);",
+											"",
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"//var data = JSON.parse(responseBody);",
+											"//postman.setEnvironmentVariable(\"token\", data.token);",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "my@email.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "mysecretpassword123",
+											"type": "text"
+										},
+										{
+											"key": "account_id",
+											"value": "AppLicenseserverAccount",
+											"type": "text"
+										},
+										{
+											"key": "account_secret",
+											"value": "secret",
+											"type": "text"
+										},
+										{
+											"key": "scope",
+											"value": "read-write",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://{{is4baseurl}}/connect/token",
+									"protocol": "http",
+									"host": [
+										"{{is4baseurl}}"
+									],
+									"path": [
+										"connect",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "221df8e7-4e36-464d-8715-c5e6c1384910",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "ce22a602-aabc-497e-ba39-1442e33a1546",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"",
+											"postman.clearGlobalVariable(\"account_addedid\");  ",
+											"//populate token variable",
+											"postman.setGlobalVariable(\"account_addedid\", responseBody); ",
+											"pm.globals.set(\"account_addedid\", responseBody);",
+											"setTimeout(function(){}, 500);  //must have this to have time for global addedid to propagate",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "",
+										"value": "",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Brad Pitt\",\n    \"email\": \"bradpitt@anasoft.net\",\n    \"description\":\"description\",\n    \"isTrial\": true,\n    \"IsActive\": true,\n    \"SetActive\": \"2018-12-01\"\n}"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/account",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"account"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add async",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "221df8e7-4e36-464d-8715-c5e6c1384910",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "a7e08d8e-d6e0-4d20-b8ea-a3ae298f9922",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"",
+											"postman.clearGlobalVariable(\"accountasync_addedid\");  ",
+											"//populate token variable",
+											"postman.setGlobalVariable(\"accountasync_addedid\", responseBody); ",
+											"pm.globals.set(\"accountasync_addedid\", responseBody);",
+											"setTimeout(function(){}, 500);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "",
+										"value": "",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Brad Pitt\",\n    \"email\": \"bradpitt@anasoft.net\",\n    \"description\":\"description\",\n    \"isTrial\": true,\n    \"IsActive\": true,\n    \"SetActive\": \"2018-12-01\"\n}"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/accountasync",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"accountasync"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAll",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "47ed0a0a-5d36-4aef-abae-9e3e236c2a03",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"verify account counts\",  () => {",
+											"    pm.expect(pm.response.json().length).to.be.above(0);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "84ceac94-4490-4684-bef1-5eeca0e69f81",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/account",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"account"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAll async",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "47ed0a0a-5d36-4aef-abae-9e3e236c2a03",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"verify account counts\",  () => {",
+											"    pm.expect(pm.response.json().length).to.be.above(0);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "84ceac94-4490-4684-bef1-5eeca0e69f81",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/accountasync",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"accountasync"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetById",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "34354726-bee9-4bb8-ab38-dde36f12f42b",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"//",
+											"postman.clearGlobalVariable(\"account_addedrowversion\");  ",
+											"postman.setGlobalVariable(\"account_addedrowversion\", pm.response.json().rowVersion); ",
+											"pm.globals.set(\"account_addedrowversion\", pm.response.json().rowVersion);",
+											"//",
+											"pm.test(\"verify account returned\",  () => {",
+											"   pm.expect(pm.response.json().id).to.be.above(0);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/account/{{account_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"account",
+										"{{account_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetById async",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "f06f11f2-9d84-4c4c-a213-8a4de179c4c1",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"//",
+											"postman.clearGlobalVariable(\"accountasync_addedrowversion\");  ",
+											"postman.setGlobalVariable(\"accountasync_addedrowversion\", pm.response.json().rowVersion); ",
+											"pm.globals.set(\"accountasync_addedrowversion\", pm.response.json().rowVersion);",
+											"//",
+											"pm.test(\"verify account returned\",  () => {",
+											"  pm.expect(pm.response.json().id).to.be.above(0);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/accountasync/{{accountasync_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"accountasync",
+										"{{accountasync_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateById",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d2ca76fc-10df-4ec3-82b9-a58e0454b8de",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(202);",
+											"});",
+											"",
+											"//updated",
+											"pm.test(\"verify account updated\",  () => {",
+											"   pm.expect(pm.response.json().description).to.be.equal(\"updated\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {\n        \"id\": {{account_addedid}},\n        \"name\": \"Brad Pitt - update3\",\n        \"email\": \"email3@anasoft.net\",\n        \"description\": \"updated\",\n        \"isTrial\": true,\n        \"isActive\": true,\n        \"setActive\": \"2018-12-01T00:00:00\",\n        \"rowVersion\":\"{{account_addedrowversion}}\",\n        \"testText\": null\n    }"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/account/{{account_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"account",
+										"{{account_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateById async",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d0afe353-c00b-4f0e-830c-9d068f19fe02",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(202);",
+											"});",
+											"",
+											"//updated",
+											"pm.test(\"verify account updated\",  () => {",
+											"   pm.expect(pm.response.json().description).to.be.equal(\"updated\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {\n        \"id\": {{accountasync_addedid}},\n        \"name\": \"Brad Pitt - update3\",\n        \"email\": \"email3@anasoft.net\",\n        \"description\": \"updated\",\n        \"isTrial\": true,\n        \"isActive\": true,\n        \"setActive\": \"2018-12-01T00:00:00\",\n        \"rowVersion\":\"{{accountasync_addedrowversion}}\",\n        \"testText\": null\n    }"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/accountasync/{{accountasync_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"accountasync",
+										"{{accountasync_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteById",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "31384209-6078-4f65-90b1-f01a36ed0655",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/account/{{account_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"account",
+										"{{account_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteById async",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e7d0eca3-b385-40c8-9dec-6d3eb17bd220",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/accountasync/{{accountasync_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"accountasync",
+										"{{accountasync_addedid}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "1.GetToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "79528e6b-9c51-47eb-a407-db8861076675",
+										"exec": [
+											"var data = JSON.parse(responseBody);",
+											"//is4_token defined in Edit collection - Variable",
+											"//in this test populated",
+											"postman.clearGlobalVariable(\"is4_token\");  ",
+											"//populate token variable",
+											"postman.setGlobalVariable(\"is4_token\", data.access_token); ",
+											"pm.globals.set(\"is4_token\", data.access_token);",
+											"",
+											"console.log(\"is4_token\", data.access_token);",
+											"",
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"//var data = JSON.parse(responseBody);",
+											"//postman.setEnvironmentVariable(\"token\", data.token);",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "my@email.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "mysecretpassword123",
+											"type": "text"
+										},
+										{
+											"key": "user_id",
+											"value": "AppLicenseserverUser",
+											"type": "text"
+										},
+										{
+											"key": "user_secret",
+											"value": "secret",
+											"type": "text"
+										},
+										{
+											"key": "scope",
+											"value": "read-write",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://{{is4baseurl}}/connect/token",
+									"protocol": "http",
+									"host": [
+										"{{is4baseurl}}"
+									],
+									"path": [
+										"connect",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "221df8e7-4e36-464d-8715-c5e6c1384910",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "2c044953-195e-4f0c-b04b-98ae140f7d1f",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"",
+											"postman.clearGlobalVariable(\"user_addedid\");  ",
+											"//populate token variable",
+											"postman.setGlobalVariable(\"user_addedid\", responseBody); ",
+											"pm.globals.set(\"user_addedid\", responseBody);",
+											"setTimeout(function(){}, 500);  //must have this to have time for global addedid to propagate",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "",
+										"value": "",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"FirstName\": \"Brad\",\n    \"LastName\": \"Pitt\",\n    \"UserName\": \"my1@email.com\",\n    \"Email\":\"bradpitt@anasoft.net\",\n    \"Description\": \"description\",\n    \"IsAdminRole\": true,\n    \"IsActive\": true,\n    \"Password\": \"mysecretpassword123\",\n    \"AccountId\": 1\n}"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/user",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add async",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "221df8e7-4e36-464d-8715-c5e6c1384910",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "f97e586d-69cb-49ce-9c57-bfcedc1ee0ca",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"",
+											"postman.clearGlobalVariable(\"userasync_addedid\");  ",
+											"//populate token variable",
+											"postman.setGlobalVariable(\"userasync_addedid\", responseBody); ",
+											"pm.globals.set(\"userasync_addedid\", responseBody);",
+											"setTimeout(function(){}, 500);  //must have this to have time for global addedid to propagate",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "",
+										"value": "",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"FirstName\": \"Brad\",\n    \"LastName\": \"Pitt\",\n    \"UserName\": \"my1@email.com\",\n    \"Email\":\"bradpitt@anasoft.net\",\n    \"Description\": \"description\",\n    \"IsAdminRole\": true,\n    \"IsActive\": true,\n    \"Password\": \"mysecretpassword123\",\n    \"AccountId\": 1\n}"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/userasync",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"userasync"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAll",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "47ed0a0a-5d36-4aef-abae-9e3e236c2a03",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"verify account counts\",  () => {",
+											"    pm.expect(pm.response.json().length).to.be.above(0);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "84ceac94-4490-4684-bef1-5eeca0e69f81",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/user",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAll async",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "67dac4cb-99e7-4cae-851a-035b07a0b902",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"verify account counts\",  () => {",
+											"    pm.expect(pm.response.json().length).to.be.above(0);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/userasync",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"userasync"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetById",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "09754b14-90e7-4176-8d65-b589abd85002",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"//",
+											"postman.clearGlobalVariable(\"user_addedrowversion\");  ",
+											"postman.setGlobalVariable(\"user_addedrowversion\", pm.response.json().rowVersion); ",
+											"pm.globals.set(\"user_addedrowversion\", pm.response.json().rowVersion);",
+											"//",
+											"pm.test(\"verify user returned\",  () => {",
+											"   pm.expect(pm.response.json().id).to.be.above(0);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/user/{{user_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"user",
+										"{{user_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetById async",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8a9f682a-da02-44b6-b54b-8468f2da139f",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"//",
+											"postman.clearGlobalVariable(\"userasync_addedrowversion\");  ",
+											"postman.setGlobalVariable(\"userasync_addedrowversion\", pm.response.json().rowVersion); ",
+											"pm.globals.set(\"userasync_addedrowversion\", pm.response.json().rowVersion);",
+											"//",
+											"pm.test(\"verify user returned\",  () => {",
+											"   pm.expect(pm.response.json().id).to.be.above(0);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/userasync/{{userasync_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"userasync",
+										"{{userasync_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateById",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d8f43312-caa9-412e-b3d5-cc0b5e46c476",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(202);",
+											"});",
+											"",
+											"//updated",
+											"pm.test(\"verify user updated\",  () => {",
+											"   pm.expect(pm.response.json().description).to.be.equal(\"updated\");",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"id\":{{user_addedid}},\n    \"FirstName\": \"Brad\",\n    \"LastName\": \"Pitt\",\n    \"UserName\": \"my1@email.com\",\n    \"Email\":\"bradpitt@anasoft.net\",\n    \"Description\": \"updated\",\n    \"IsAdminRole\": true,\n    \"IsActive\": true,\n    \"Password\": \"mysecretpassword123\",\n    \"AccountId\": 1,\n    \"rowVersion\": \"{{user_addedrowversion}}\",\n    \"testText\": null\n}"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/user/{{user_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"user",
+										"{{user_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateById async",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "44d857ee-f00d-4441-8947-59d8bd4d6db7",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(202);",
+											"});",
+											"",
+											"//updated",
+											"pm.test(\"verify user updated\",  () => {",
+											"   pm.expect(pm.response.json().description).to.be.equal(\"updated\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"id\":{{userasync_addedid}},\n    \"FirstName\": \"Brad\",\n    \"LastName\": \"Pitt\",\n    \"UserName\": \"my1@email.com\",\n    \"Email\":\"bradpitt@anasoft.net\",\n    \"Description\": \"updated\",\n    \"IsAdminRole\": true,\n    \"IsActive\": true,\n    \"Password\": \"mysecretpassword123\",\n    \"AccountId\": 1,\n    \"rowVersion\": \"{{userasync_addedrowversion}}\",\n    \"testText\": null\n}"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/userasync/{{userasync_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"userasync",
+										"{{userasync_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteById",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e7d0eca3-b385-40c8-9dec-6d3eb17bd220",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/user/{{user_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"user",
+										"{{user_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteById async",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e7d0eca3-b385-40c8-9dec-6d3eb17bd220",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/userasync/{{userasync_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+
+									"path": [
+										"api",
+										"userasync",
+										"{{userasync_addedid}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			
+				,{
+					"name": "License",
+					"item": [
+						{
+							"name": "1.GetToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "a4d30822-f599-4442-92e3-06dbd372e8ec",
+										"exec": [
+											"var data = JSON.parse(responseBody);",
+											"//is4_token defined in Edit collection - Variable",
+											"//in this test populated",
+											"postman.clearGlobalVariable(\"is4_token\");  ",
+											"//populate token variable",
+											"postman.setGlobalVariable(\"is4_token\", data.access_token); ",
+											"pm.globals.set(\"is4_token\", data.access_token);",
+											"",
+											"console.log(\"is4_token\", data.access_token);",
+											"",
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"//var data = JSON.parse(responseBody);",
+											"//postman.setEnvironmentVariable(\"token\", data.token);",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "my@email.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "mysecretpassword123",
+											"type": "text"
+										},
+										{
+											"key": "license_id",
+											"value": "AppLicenseserverLicense",
+											"type": "text"
+										},
+										{
+											"key": "license_secret",
+											"value": "secret",
+											"type": "text"
+										},
+										{
+											"key": "scope",
+											"value": "read-write",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://{{is4baseurl}}/connect/token",
+									"protocol": "http",
+									"host": [
+										"{{is4baseurl}}"
+									],
+									"path": [
+										"connect",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "5aae9861-374e-4fca-bafa-a2940f9d0a29",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "038654e5-4824-49fa-bcea-1ce6e8ac227c",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"",
+											"postman.clearGlobalVariable(\"license_addedid\");  ",
+											"//populate token variable",
+											"postman.setGlobalVariable(\"license_addedid\", responseBody); ",
+											"pm.globals.set(\"license_addedid\", responseBody);",
+											"setTimeout(function(){}, 500);  //must have this to have time for global addedid to propagate",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "",
+										"value": "",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"TestText\": \"tt\"\n}"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/license",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"license"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add async",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "63f24c51-711f-4ad7-b54f-f5f7a40dafa1",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "2c884c79-667b-4f20-bd18-d13c5c2d07fc",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"",
+											"postman.clearGlobalVariable(\"licenseasync_addedid\");  ",
+											"//populate token variable",
+											"postman.setGlobalVariable(\"licenseasync_addedid\", responseBody); ",
+											"pm.globals.set(\"licenseasync_addedid\", responseBody);",
+											"setTimeout(function(){}, 500);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "",
+										"value": "",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"TestText\": \"tt\"\n}"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/licenseasync",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"licenseasync"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAll",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "dc68d510-7437-486b-97fa-681bef26267f",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"verify license counts\",  () => {",
+											"    pm.expect(pm.response.json().length).to.be.above(0);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "d9f59b5c-c318-4e37-9db8-4368d5405e3e",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/license",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"license"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAll async",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "9e423f20-f166-4d7e-99a7-0b1e8b9460fd",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"verify license counts\",  () => {",
+											"    pm.expect(pm.response.json().length).to.be.above(0);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "ba82f83b-6453-49df-a538-c8d703825e88",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/licenseasync",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"licenseasync"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetById",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "1f65d7c2-4571-49df-88a7-55c1a51df22f",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"//",
+											"postman.clearGlobalVariable(\"license_addedrowversion\");  ",
+											"postman.setGlobalVariable(\"license_addedrowversion\", pm.response.json().rowVersion); ",
+											"pm.globals.set(\"license_addedrowversion\", pm.response.json().rowVersion);",
+											"//",
+											"pm.test(\"verify license returned\",  () => {",
+											"   pm.expect(pm.response.json().id).to.be.above(0);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/license/{{license_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"license",
+										"{{license_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetById async",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "dd879f0d-1fca-478c-8952-fc3dd1242d7c",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"//",
+											"postman.clearGlobalVariable(\"licenseasync_addedrowversion\");  ",
+											"postman.setGlobalVariable(\"licenseasync_addedrowversion\", pm.response.json().rowVersion); ",
+											"pm.globals.set(\"licenseasync_addedrowversion\", pm.response.json().rowVersion);",
+											"//",
+											"pm.test(\"verify license returned\",  () => {",
+											"  pm.expect(pm.response.json().id).to.be.above(0);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/licenseasync/{{licenseasync_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"licenseasync",
+										"{{licenseasync_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateById",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "0c48764d-5cc7-4c2b-8b82-4f213dba1ff3",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(202);",
+											"});",
+											"",
+											"//updated",
+											"pm.test(\"verify license updated\",  () => {",
+											"   pm.expect(pm.response.json().testText).to.be.equal(\"tt updated\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {\n        \"id\": {{license_addedid}},\n        \"testText\": \"tt updated\",\n        \"rowVersion\":\"{{license_addedrowversion}}\"\n    }"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/license/{{license_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"license",
+										"{{license_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateById async",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "89a566c8-d28e-433c-9a80-663c709d834d",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(202);",
+											"});",
+											"",
+											"//updated",
+											"pm.test(\"verify account updated\",  () => {",
+											"   pm.expect(pm.response.json().testText).to.be.equal(\"tt updated\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {\n        \"id\": {{licenseasync_addedid}},\n        \"testText\": \"tt updated\",\n        \"rowVersion\":\"{{licenseasync_addedrowversion}}\"\n    }"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/licenseasync/{{licenseasync_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"licenseasync",
+										"{{licenseasync_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteById",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "9d5d37f6-7311-42f5-ada1-a6684902d07a",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/license/{{license_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"license",
+										"{{license_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteById async",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "3b31fdc7-42dd-4f5e-8893-a5313f33435d",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/licenseasync/{{licenseasync_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"licenseasync",
+										"{{licenseasync_addedid}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "Deafult IS4 license tests",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "25c1afbc-52f4-4682-9021-96e2ed2f3aa9",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "fc2348de-640a-4367-abd6-8691de781e38",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+				
+			
+				,{
+					"name": "Product",
+					"item": [
+						{
+							"name": "1.GetToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "0b0d9bd8-1303-4dc0-9b5e-bfe9fe65a534",
+										"exec": [
+											"var data = JSON.parse(responseBody);",
+											"//is4_token defined in Edit collection - Variable",
+											"//in this test populated",
+											"postman.clearGlobalVariable(\"is4_token\");  ",
+											"//populate token variable",
+											"postman.setGlobalVariable(\"is4_token\", data.access_token); ",
+											"pm.globals.set(\"is4_token\", data.access_token);",
+											"",
+											"console.log(\"is4_token\", data.access_token);",
+											"",
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"//var data = JSON.parse(responseBody);",
+											"//postman.setEnvironmentVariable(\"token\", data.token);",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "my@email.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "mysecretpassword123",
+											"type": "text"
+										},
+										{
+											"key": "product_id",
+											"value": "AppLicenseserverProduct",
+											"type": "text"
+										},
+										{
+											"key": "product_secret",
+											"value": "secret",
+											"type": "text"
+										},
+										{
+											"key": "scope",
+											"value": "read-write",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://{{is4baseurl}}/connect/token",
+									"protocol": "http",
+									"host": [
+										"{{is4baseurl}}"
+									],
+									"path": [
+										"connect",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "a710c70c-298c-4a94-8036-b344644f9d51",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "b411c06c-faad-413e-a6db-a56d8bacfb62",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"",
+											"postman.clearGlobalVariable(\"product_addedid\");  ",
+											"//populate token variable",
+											"postman.setGlobalVariable(\"product_addedid\", responseBody); ",
+											"pm.globals.set(\"product_addedid\", responseBody);",
+											"setTimeout(function(){}, 500);  //must have this to have time for global addedid to propagate",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "",
+										"value": "",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"TestText\": \"tt\"\n}"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/product",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"product"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add async",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "0fd87b9e-0dbc-4b76-bd07-a21ef8b5beb7",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "3addbf4d-9370-441e-acf3-75331e6d98b5",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"",
+											"postman.clearGlobalVariable(\"productasync_addedid\");  ",
+											"//populate token variable",
+											"postman.setGlobalVariable(\"productasync_addedid\", responseBody); ",
+											"pm.globals.set(\"productasync_addedid\", responseBody);",
+											"setTimeout(function(){}, 500);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "",
+										"value": "",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"TestText\": \"tt\"\n}"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/productasync",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"productasync"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAll",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "2845340c-241e-4e51-9ce8-8846843da86e",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"verify product counts\",  () => {",
+											"    pm.expect(pm.response.json().length).to.be.above(0);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "f806d9ad-39c2-475f-9743-fc0dd72e437e",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/product",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"product"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAll async",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "03cf1123-c593-44a7-b542-d43ebcde3e09",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"verify product counts\",  () => {",
+											"    pm.expect(pm.response.json().length).to.be.above(0);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "8d0c8d28-9371-4f84-a611-b94c498e8609",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/productasync",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"productasync"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetById",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "736a00b7-7367-401e-aa45-06145ecc64ba",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"//",
+											"postman.clearGlobalVariable(\"product_addedrowversion\");  ",
+											"postman.setGlobalVariable(\"product_addedrowversion\", pm.response.json().rowVersion); ",
+											"pm.globals.set(\"product_addedrowversion\", pm.response.json().rowVersion);",
+											"//",
+											"pm.test(\"verify product returned\",  () => {",
+											"   pm.expect(pm.response.json().id).to.be.above(0);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/product/{{product_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"product",
+										"{{product_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetById async",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d15f1117-6c0b-480b-844d-9926e8e608da",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"//",
+											"postman.clearGlobalVariable(\"productasync_addedrowversion\");  ",
+											"postman.setGlobalVariable(\"productasync_addedrowversion\", pm.response.json().rowVersion); ",
+											"pm.globals.set(\"productasync_addedrowversion\", pm.response.json().rowVersion);",
+											"//",
+											"pm.test(\"verify product returned\",  () => {",
+											"  pm.expect(pm.response.json().id).to.be.above(0);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/productasync/{{productasync_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"productasync",
+										"{{productasync_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateById",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "9d5c4d2c-0e80-4835-96fa-bd72b5a6f0f4",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(202);",
+											"});",
+											"",
+											"//updated",
+											"pm.test(\"verify product updated\",  () => {",
+											"   pm.expect(pm.response.json().testText).to.be.equal(\"tt updated\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {\n        \"id\": {{product_addedid}},\n        \"testText\": \"tt updated\",\n        \"rowVersion\":\"{{product_addedrowversion}}\"\n    }"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/product/{{product_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"product",
+										"{{product_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateById async",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "f211f4c9-6107-4e0f-99d7-0231b6b7e7a2",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(202);",
+											"});",
+											"",
+											"//updated",
+											"pm.test(\"verify account updated\",  () => {",
+											"   pm.expect(pm.response.json().testText).to.be.equal(\"tt updated\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {\n        \"id\": {{productasync_addedid}},\n        \"testText\": \"tt updated\",\n        \"rowVersion\":\"{{productasync_addedrowversion}}\"\n    }"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/productasync/{{productasync_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"productasync",
+										"{{productasync_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteById",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "fd6ea569-8899-4e9c-9a1c-28cfd7aad38c",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/product/{{product_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"product",
+										"{{product_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteById async",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "798058b1-2160-442f-9c1c-0db2617cc225",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/productasync/{{productasync_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"productasync",
+										"{{productasync_addedid}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "Deafult IS4 product tests",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "3712c283-b25a-4a30-b39e-778332efddf6",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "84520da9-4233-4d5c-835b-8b82f9ba456a",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+				
+			
+				,{
+					"name": "Telemetry",
+					"item": [
+						{
+							"name": "1.GetToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "abdd72aa-82c1-4ae3-8d83-87ffee6ed96a",
+										"exec": [
+											"var data = JSON.parse(responseBody);",
+											"//is4_token defined in Edit collection - Variable",
+											"//in this test populated",
+											"postman.clearGlobalVariable(\"is4_token\");  ",
+											"//populate token variable",
+											"postman.setGlobalVariable(\"is4_token\", data.access_token); ",
+											"pm.globals.set(\"is4_token\", data.access_token);",
+											"",
+											"console.log(\"is4_token\", data.access_token);",
+											"",
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"//var data = JSON.parse(responseBody);",
+											"//postman.setEnvironmentVariable(\"token\", data.token);",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "my@email.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "mysecretpassword123",
+											"type": "text"
+										},
+										{
+											"key": "telemetry_id",
+											"value": "AppLicenseserverTelemetry",
+											"type": "text"
+										},
+										{
+											"key": "telemetry_secret",
+											"value": "secret",
+											"type": "text"
+										},
+										{
+											"key": "scope",
+											"value": "read-write",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://{{is4baseurl}}/connect/token",
+									"protocol": "http",
+									"host": [
+										"{{is4baseurl}}"
+									],
+									"path": [
+										"connect",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "91652833-5910-4aca-8013-7873c92e922e",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "82e0f936-07a7-4c21-a46f-fccae79057da",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"",
+											"postman.clearGlobalVariable(\"telemetry_addedid\");  ",
+											"//populate token variable",
+											"postman.setGlobalVariable(\"telemetry_addedid\", responseBody); ",
+											"pm.globals.set(\"telemetry_addedid\", responseBody);",
+											"setTimeout(function(){}, 500);  //must have this to have time for global addedid to propagate",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "",
+										"value": "",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"TestText\": \"tt\"\n}"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/telemetry",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"telemetry"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add async",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "3e448c8a-0b5a-4876-890e-a7117829a237",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "98eac305-0c2e-44ca-9b6c-31cb9b16e5a3",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"",
+											"postman.clearGlobalVariable(\"telemetryasync_addedid\");  ",
+											"//populate token variable",
+											"postman.setGlobalVariable(\"telemetryasync_addedid\", responseBody); ",
+											"pm.globals.set(\"telemetryasync_addedid\", responseBody);",
+											"setTimeout(function(){}, 500);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "",
+										"value": "",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"TestText\": \"tt\"\n}"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/telemetryasync",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"telemetryasync"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAll",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "9774be66-bffe-490d-a018-90683a3479e6",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"verify telemetry counts\",  () => {",
+											"    pm.expect(pm.response.json().length).to.be.above(0);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "53c237cb-d65c-4e68-b50d-d9c7ecaeb836",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/telemetry",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"telemetry"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAll async",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "26dc09a8-1385-4f52-9574-7f5e8946b1d0",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"verify telemetry counts\",  () => {",
+											"    pm.expect(pm.response.json().length).to.be.above(0);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "71140884-c2f4-48bb-8245-ab2874945ac7",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/telemetryasync",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"telemetryasync"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetById",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e69b8f71-1dc7-41b9-91e2-5ae429da6a7f",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"//",
+											"postman.clearGlobalVariable(\"telemetry_addedrowversion\");  ",
+											"postman.setGlobalVariable(\"telemetry_addedrowversion\", pm.response.json().rowVersion); ",
+											"pm.globals.set(\"telemetry_addedrowversion\", pm.response.json().rowVersion);",
+											"//",
+											"pm.test(\"verify telemetry returned\",  () => {",
+											"   pm.expect(pm.response.json().id).to.be.above(0);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/telemetry/{{telemetry_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"telemetry",
+										"{{telemetry_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetById async",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "a6337cd6-e9d8-49f8-8fe0-fc9d2604cc34",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"//",
+											"postman.clearGlobalVariable(\"telemetryasync_addedrowversion\");  ",
+											"postman.setGlobalVariable(\"telemetryasync_addedrowversion\", pm.response.json().rowVersion); ",
+											"pm.globals.set(\"telemetryasync_addedrowversion\", pm.response.json().rowVersion);",
+											"//",
+											"pm.test(\"verify telemetry returned\",  () => {",
+											"  pm.expect(pm.response.json().id).to.be.above(0);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/telemetryasync/{{telemetryasync_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"telemetryasync",
+										"{{telemetryasync_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateById",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e18c6498-80b5-4399-af04-a48816bf27ed",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(202);",
+											"});",
+											"",
+											"//updated",
+											"pm.test(\"verify telemetry updated\",  () => {",
+											"   pm.expect(pm.response.json().testText).to.be.equal(\"tt updated\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {\n        \"id\": {{telemetry_addedid}},\n        \"testText\": \"tt updated\",\n        \"rowVersion\":\"{{telemetry_addedrowversion}}\"\n    }"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/telemetry/{{telemetry_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"telemetry",
+										"{{telemetry_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateById async",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "2d95b3cb-960b-4649-a29d-171d931c3d67",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(202);",
+											"});",
+											"",
+											"//updated",
+											"pm.test(\"verify account updated\",  () => {",
+											"   pm.expect(pm.response.json().testText).to.be.equal(\"tt updated\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {\n        \"id\": {{telemetryasync_addedid}},\n        \"testText\": \"tt updated\",\n        \"rowVersion\":\"{{telemetryasync_addedrowversion}}\"\n    }"
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/telemetryasync/{{telemetryasync_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"telemetryasync",
+										"{{telemetryasync_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteById",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "a2b0e972-e61c-4f91-a22d-9af44ccf9bda",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/telemetry/{{telemetry_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"telemetry",
+										"{{telemetry_addedid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteById async",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c65eba0e-2382-461c-b76d-1d77339e7989",
+										"exec": [
+											"// example using pm.response.to.have",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{is4_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{apibaseurl}}/api/telemetryasync/{{telemetryasync_addedid}}",
+									"protocol": "http",
+									"host": [
+										"{{apibaseurl}}"
+									],
+									"path": [
+										"api",
+										"telemetryasync",
+										"{{telemetryasync_addedid}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "Deafult IS4 telemetry tests",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f7f36c6a-de41-4b8e-ae06-e8637ae08563",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6f6ead12-7489-4a89-814d-1b07126db13d",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+				
+
+			],
+			"description": "IndentityServer4 Authentication\n\nNOTE: Before running tests run IndentityServer and set \"UseIndentityServer4\": true in Api's appsettings.json and run Api server",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "1c47a7ce-fa9f-4187-9261-f9bf6f206e2c",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "7a16b529-1e78-444e-932f-14c05772d129",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "802e320e-97b0-4af7-bc78-c468561e7df9",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "c16740b6-9152-4eee-9b4a-4f52178c813d",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "2942c45b-81cc-4181-a1e8-ce6ff9796010",
+			"key": "apibaseurl",
+			"value": "localhost:44341",
+			"type": "string"
+		},
+		{
+			"id": "58529c26-9df5-48e3-93be-fac3abfce654",
+			"key": "is4baseurl",
+			"value": "localhost:5000",
+			"type": "string"
+		}
+	]
+}
