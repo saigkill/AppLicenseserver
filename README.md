@@ -17,7 +17,7 @@ This is a demo license server for products.
 |Deployment Prod | [![Deployment](https://vsrm.dev.azure.com/saigkill/_apis/public/Release/badge/2a51baa3-92d3-401b-8eff-a1ded53da70f/1/1) |
 |Code Quality | [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=saigkill_AppLicenseserver&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=saigkill_AppLicenseserver) |
 |Bug Reports | [![GitHub issues](https://img.shields.io/github/issues/saigkill/AppLicenseserver)](https://github.com/saigkill/AppLicenseserver) |
-|Blog|[![Blog](https://img.shields.io/badge/Blog-Saigkill-blue)](https://saschaamanns.de)|
+|Blog|[![Blog](https://img.shields.io/badge/Blog-Saigkill-blue)](https://saschamanns.de)|
 
 ## FEATURES
 
