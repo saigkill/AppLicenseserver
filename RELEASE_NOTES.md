@@ -1,7 +1,6 @@
 ﻿# RELEASE NOTES
 
-## Version 1.0.0 (2024-10-03)
+## Version 1.0.0 (2022-10-03)
 
-- Initial release of the ADR Tool.
-- Added basic functionality.
+- Initial release
 - Added Docs and Tests.

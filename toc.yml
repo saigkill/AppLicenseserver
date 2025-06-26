@@ -2,3 +2,13 @@
   href: docs/
 - name: API
   href: api/
+- name: CODE_OF_CONDUCT
+  href: CODE_OF_CONDUCT.md
+- name: CONTRIBUTING
+  href: CONTRIBUTING.md
+- name: LICENSE
+  href: LICENSE.md
+- name: README
+  href: README.md
+- name: SECURITY
+  href: SECURITY.md
