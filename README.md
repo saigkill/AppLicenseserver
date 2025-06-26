@@ -2,14 +2,12 @@
 
 ## DESCRIPTION
 
-This server provides some Requests to manage accounts, users, projects, licenses and telemetry.
-
-WayFairShippingApp is released under a proprietary License, see the file `LizenzenUndAgb.rtf` for more information.
+This is a demo license server for products.
 
 |What|Where|
 |-----|-------------------------------------------------------------------------------------|
-|Code  | [https://dev.azure.com/saigkill/AppLicenseserver/_git/AppLicenseserver] (internal)| 
-|Bugs & feature requests  | [https://dev.azure.com/saigkill/AppLicenseserver/_workitems] (internal)|
+|Code  | [https://dev.azure.com/saigkill/AppLicenseserver] | 
+|Docs  | [https://moongladesm.blob.core.windows.net/docs/_AppLicenseserver/index.html] (internal)|
 
 
 |What|Status|
@@ -29,7 +27,6 @@ WayFairShippingApp is released under a proprietary License, see the file `Lizenz
 
 * Windows 10/11,
 * A MSSQL Database
-* .NET 6 and all other dependencies are bundled in the package
 
 ## INSTALLATION
 

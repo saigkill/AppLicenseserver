@@ -1,0 +1,24 @@
+[
+  {
+    "Created": "4/5/2022",
+    "Modified": "4/5/2022",
+    "Name": "App1",
+    "Description": "App Example",
+    "Version": "1.4.0",
+    "ReleaseDate": "5/16/2022",
+    "isReleased": true,
+    "isActive": true,
+    "isDeleted": false
+  },
+  {
+    "Created": "4/5/2022",
+    "Modified": "4/5/2022",
+    "Name": "App2",
+    "Description": "App2 Example",
+    "Version": "1.1.0",
+    "ReleaseDate": "4/26/2022",
+    "isReleased": true,
+    "isActive": true,
+    "isDeleted": false
+  }
+]

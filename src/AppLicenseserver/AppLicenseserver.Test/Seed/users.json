@@ -1,0 +1,16 @@
+[
+  {
+    "Created": "4/5/2022",
+    "Modified": "4/5/2022",
+    "FirstName": "Sascha",
+    "LastName": "Manns",
+    "UserName": "saigkill",
+    "Email": "example@example.de",
+    "Description": "Dev-User",
+    "IsAdminRole": true,
+    "Roles": "Administrator",
+    "IsActive": true,
+    "Password": "wZSkQyFVu27i0K+vFmZ0KXM/MzyYjIfg5pPGB5mHB5E=",
+    "AccountId": 1
+  }
+]
